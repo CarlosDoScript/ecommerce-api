@@ -15,7 +15,7 @@ using Ambev.DeveloperEvaluation.Application.Carts.ListCarts;
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Carts;
 
 [ApiController]
-[Route("api/carts")]
+[Route("api/[controller]")]
 public class CartsController : BaseController
 {
     private readonly IMediator _mediator;

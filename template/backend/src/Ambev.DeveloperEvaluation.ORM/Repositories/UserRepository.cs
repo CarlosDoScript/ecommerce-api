@@ -56,6 +56,32 @@ public class UserRepository : IUserRepository
             .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
     }
 
+    public async Task<User> UpdateAsync(User user, CancellationToken cancellationToken = default)
+    {
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync(cancellationToken);
+        return user;
+    }
+
+    public async Task<(IEnumerable<User> Items, int TotalCount)> GetPagedAsync(
+        int page, int size, string? order,
+        CancellationToken cancellationToken = default)
+    {
+        var query = _context.Users.AsNoTracking();
+
+        query = order?.ToLower() switch
+        {
+            "email desc"    => query.OrderByDescending(u => u.Email),
+            "email"         => query.OrderBy(u => u.Email),
+            "username desc" => query.OrderByDescending(u => u.Username),
+            _               => query.OrderBy(u => u.Username)
+        };
+
+        var total = await query.CountAsync(cancellationToken);
+        var items = await query.Skip((page - 1) * size).Take(size).ToListAsync(cancellationToken);
+        return (items, total);
+    }
+
     /// <summary>
     /// Deletes a user from the database
     /// </summary>
