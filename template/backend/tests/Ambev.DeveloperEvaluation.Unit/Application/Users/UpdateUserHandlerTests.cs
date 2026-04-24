@@ -101,7 +101,9 @@ public class UpdateUserHandlerTests
                 u.Username == command.Username &&
                 u.Email == command.Email &&
                 u.Role == command.Role &&
-                u.Status == command.Status),
+                u.Status == command.Status &&
+                u.Name.Firstname == command.Name.Firstname &&
+                u.Name.Lastname == command.Name.Lastname),
             Arg.Any<CancellationToken>());
     }
 }

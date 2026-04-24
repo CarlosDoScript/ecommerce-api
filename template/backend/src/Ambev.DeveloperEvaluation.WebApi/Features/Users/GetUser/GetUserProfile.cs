@@ -1,18 +1,21 @@
 using AutoMapper;
+using Ambev.DeveloperEvaluation.Application.Users.GetUser;
+using Ambev.DeveloperEvaluation.Domain.ValueObjects;
+using Ambev.DeveloperEvaluation.WebApi.Features.Users.Common;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.GetUser;
 
-/// <summary>
-/// Profile for mapping GetUser feature requests to commands
-/// </summary>
 public class GetUserProfile : Profile
 {
-    /// <summary>
-    /// Initializes the mappings for GetUser feature
-    /// </summary>
     public GetUserProfile()
     {
-        CreateMap<Guid, Application.Users.GetUser.GetUserCommand>()
-            .ConstructUsing(id => new Application.Users.GetUser.GetUserCommand(id));
+        CreateMap<Guid, GetUserCommand>()
+            .ConstructUsing(id => new GetUserCommand(id));
+
+        CreateMap<UserName, UserNameModel>().ReverseMap();
+        CreateMap<UserAddress, UserAddressModel>()
+            .ForMember(d => d.Geolocation, o => o.MapFrom(s => new UserGeolocationModel { Lat = s.Lat, Long = s.Long }));
+
+        CreateMap<GetUserResult, GetUserResponse>();
     }
 }

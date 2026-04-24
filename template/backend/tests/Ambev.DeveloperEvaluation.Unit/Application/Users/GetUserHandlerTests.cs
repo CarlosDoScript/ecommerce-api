@@ -27,7 +27,7 @@ public class GetUserHandlerTests
         // Given
         var userId = Guid.NewGuid();
         var user = new User { Id = userId, Username = "johndoe", Email = "john@email.com" };
-        var result = new GetUserResult { Id = userId, Name = user.Username, Email = user.Email };
+        var result = new GetUserResult { Id = userId, Username = user.Username, Email = user.Email };
 
         _userRepository.GetByIdAsync(userId, Arg.Any<CancellationToken>()).Returns(user);
         _mapper.Map<GetUserResult>(user).Returns(result);

@@ -1,4 +1,5 @@
 using Ambev.DeveloperEvaluation.Domain.Enums;
+using Ambev.DeveloperEvaluation.WebApi.Features.Users.Common;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Users.UpdateUser;
 
@@ -9,4 +10,6 @@ public class UpdateUserRequest
     public string Phone { get; set; } = string.Empty;
     public UserStatus Status { get; set; }
     public UserRole Role { get; set; }
+    public UserNameModel Name { get; set; } = new();
+    public UserAddressModel? Address { get; set; }
 }

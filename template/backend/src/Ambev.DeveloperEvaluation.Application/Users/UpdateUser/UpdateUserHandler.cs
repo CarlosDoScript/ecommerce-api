@@ -32,6 +32,8 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UpdateUserRe
         user.Phone = command.Phone;
         user.Status = command.Status;
         user.Role = command.Role;
+        user.Name = command.Name;
+        user.Address = command.Address;
         user.UpdatedAt = DateTime.UtcNow;
 
         var updated = await _userRepository.UpdateAsync(user, cancellationToken);
