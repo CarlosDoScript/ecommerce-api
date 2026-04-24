@@ -364,3 +364,4 @@ MigrationBackup/
 FodyWeavers.xsd
 .idea
 /template/backend/.dotnet/.dotnet
+/.claude/settings.local.json
